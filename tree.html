@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<style>
+    #mycanvas{
+        height: 200px;
+        width: 200px;
+        /*background:#000;*/
+    }
+</style>
+<body>
+<canvas id="mycanvas">
+
+</canvas>
+</body>
+
+<script type="text/javascript">
+    function drawTree(){
+        var canvas=document.getElementById('mycanvas');
+        if(canvas.getContext){
+            var ctx=canvas.getContext('2d');
+            ctx.fillRect(60,50,40,90);
+            ctx.fillStyle="green";
+            ctx.fillRect(40,110,80,40);
+            a=60;
+            b=10;
+            for(var i=0;i<4;i++){
+                drawLeaf(-20+a-(i*10),b+(i*30),ctx,"right");
+                drawLeaf(-20+a-(i*10),b+(i*30),ctx,"right");
+            }
+            ctx.fillStyle="brown";
+            ctx.fillRect(70,120,20,40);
+            drawStar(ctx,80,20,205,0.5);
+        }else{
+            alert('浏览器版本过低');
+        }
+    }
+    function drawLeaf(x,y,ctx,style){
+            ctx.beginPath();
+        ctx.fillStyle="green";
+        if(style=="right"){
+            ctx.moveTo(x,y);
+            ctx.lineTo(x+40,y+40);
+            ctx.lineTo(x+40,y+40);
+        }
+        ctx.fill();
+    }
+    function drawStar(ctx,x,y,r,p,m){
+        ctx.fillStyle="gold";
+        ctx.beginPath();
+        ctx.translate(x,y);
+        ctx.movet (0,0,- r);
+        for(var i=0;i<p;i++){
+            ctx.rotate(Math.PI/p);
+            ctx.lineTo(0,0 - (r*m));
+            ctx.rotate(Math.PI/p);
+            ctx.lineTo(0,0,-r);
+        }
+        ctx.fill();
+        ctx.restore();
+    }
+    window.setTimeout(drawTree,1000);
+
+</script>
+</html>
